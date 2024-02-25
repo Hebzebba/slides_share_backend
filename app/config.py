@@ -1,0 +1,1 @@
+BASE_ROUTER: str = "/api/v1"
