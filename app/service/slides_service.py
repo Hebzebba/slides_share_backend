@@ -5,7 +5,14 @@ import shutil, os
 
 
 def add_slides_service(
-    db_session: Session, host_url, course, department, level, semister, slides, lecturer_email
+    db_session: Session,
+    host_url,
+    course,
+    department,
+    level,
+    semester,
+    slides,
+    lecturer_email,
 ) -> dict:
     path = f"./slides/{slides.filename}"
     with open(path, "w+b") as file:
@@ -16,10 +23,10 @@ def add_slides_service(
                 course=course,
                 department=department,
                 level=level,
-                semister=semister,
+                semester=semester,
                 content_type=slides.content_type,
                 file_upload=f"{host_url}/slides/{slides.filename}",
-                lecturer_email=lecturer_email
+                lecturer_email=lecturer_email,
             )
         )
         db_session.commit()
@@ -27,7 +34,6 @@ def add_slides_service(
     except Exception as ex:
         print(ex)
         raise HTTPException(status_code=400, detail="failed to create slides")
-
 
 
 def delete_slides_service(_id: int, db_session: Session) -> dict:

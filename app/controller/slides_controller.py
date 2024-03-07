@@ -15,14 +15,21 @@ def add_slides(
     course: Annotated[str, Form()],
     department: Annotated[str, Form()],
     level: Annotated[str, Form()],
-    semister: Annotated[str, Form()],
+    semester: Annotated[str, Form()],
     lecturer_email: Annotated[str, Form()],
     slides: UploadFile = File(...),
 ) -> dict:
     host_url = f"{request.url.scheme}://{request.url.netloc}"
-    
+
     return add_slides_service(
-        db_session, host_url, course, department, level, semister, slides, lecturer_email
+        db_session,
+        host_url,
+        course,
+        department,
+        level,
+        semester,
+        slides,
+        lecturer_email,
     )
 
 

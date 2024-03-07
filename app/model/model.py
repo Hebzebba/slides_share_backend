@@ -29,7 +29,7 @@ class Slides(SQLModel, table=True):
     course:str
     department:str
     level:str
-    semister:str
+    semester: str
     file_upload: str
     lecturer_email : Optional[str] = Field(default=None, foreign_key="lecturer.email")
 

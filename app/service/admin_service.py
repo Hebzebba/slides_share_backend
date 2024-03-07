@@ -50,11 +50,13 @@ def get_admin_by_id_number_service(admin_id: str, db_session: Session) -> dict:
     raise HTTPException(status_code=400, detail="admin not found")
 
 def get_admin_by_name_service(name: str, db_session: Session) -> dict:
-    statement = select(Admin).where(Admin.name == name)
-    result_set = db_session.exec(statement).one()
-    if result_set:
-        return result_set
-    raise HTTPException(status_code=400, detail="admin not found")
+    try:
+        statement = select(Admin).where(Admin.name == name)
+        result_set = db_session.exec(statement).one()
+        if result_set:
+            return result_set
+    except Exception:
+        raise HTTPException(status_code=400, detail="admin not found")
 
 
 def get_all_admins_service(db_session: Session) -> list[dict]:
