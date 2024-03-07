@@ -1,16 +1,20 @@
 from sqlmodel import SQLModel
 
-class CreateStudent(SQLModel):
+class UpdateStudent(SQLModel):
     index_number: str
     username: str
+    role: str
     password: str
 
 
-class CreateLecturer(SQLModel):
+class UpdateLecturer(SQLModel):
     email: str
     name: str
+    role: str
     password: str
 
-class CreateAdmin(SQLModel):
+class UpdateAdmin(SQLModel):
+    id: int
     name: str
+    role: str
     password: str

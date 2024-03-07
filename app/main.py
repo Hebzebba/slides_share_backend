@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from .controller.student_controller import student_controller
 from .controller.lecturer_controller import lecturer_controller
+from .controller.admin_controller import admin_controller
 from .controller.slides_controller import slides_controller
 from .controller.auth_controller import auth_controller
 from .model.model import create_db, drop_db
@@ -20,6 +21,7 @@ app.mount("/slides", StaticFiles(directory="slides"), "files")
 
 origins = [
     "http://localhost:3000",
+    "http://localhost",
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -32,6 +34,7 @@ app.add_middleware(
 
 app.include_router(student_controller)
 app.include_router(lecturer_controller)
+app.include_router(admin_controller)
 app.include_router(slides_controller)
 app.include_router(auth_controller)
 

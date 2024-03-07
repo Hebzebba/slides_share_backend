@@ -5,7 +5,7 @@ import shutil, os
 
 
 def add_slides_service(
-    db_session: Session, host_url, course, department, level, semister, slides, lecturer_id
+    db_session: Session, host_url, course, department, level, semister, slides, lecturer_email
 ) -> dict:
     path = f"./slides/{slides.filename}"
     with open(path, "w+b") as file:
@@ -19,7 +19,7 @@ def add_slides_service(
                 semister=semister,
                 content_type=slides.content_type,
                 file_upload=f"{host_url}/slides/{slides.filename}",
-                lecturer_id=lecturer_id
+                lecturer_email=lecturer_email
             )
         )
         db_session.commit()
@@ -43,22 +43,12 @@ def delete_slides_service(_id: int, db_session: Session) -> dict:
     db_session.commit()
     return {"message": "Slides deleted"}
 
-# TODO
-# def update_slides_service(db_session: Session, host_url, _id, course, department, level, semister, slides, lecturer_id) -> dict:
-#     result_set = db_session.get(Slides, _id)
-#     if not result_set:
-#         raise HTTPException(status_code=400, detail="Slides not found")
+def select_slides_using_lecturers_id_service(lecturer_id: str, db_session: Session):
+    print(lecturer_id)
+    statement = select(Slides).where(Slides.lecturer_email == lecturer_id)
+    results = db_session.exec(statement)
 
-#     result_set.course = course
-#     result_set.department = department
-#     result_set.level = level
-#     result_set.semister = semister
-#     result_set.lecturer_id = lecturer_id
-#     db_session.add(result_set)
-#     db_session.commit()
-#     return {"message": "lecturer updated"}
-
-
+    return results.all()
 
 def get_all_slides_service(db_session: Session) -> list[dict]:
     statement = select(Slides)

@@ -1,4 +1,5 @@
 from ..model.create_model import CreateStudent
+from ..model.update_model import UpdateStudent
 from ..model.model import Student
 from sqlmodel import select, Session
 from fastapi import HTTPException
@@ -10,6 +11,7 @@ def add_student_service(student: CreateStudent, db_session: Session) -> dict:
         db_session.add(
             Student(
                 name=student.username,
+                role="Student",
                 password=hash_password(student.password),
                 index_number=student.index_number
             )
@@ -29,12 +31,13 @@ def delete_student_service(index_number: str, db_session: Session) -> dict:
     return {"message": "student deleted"}
 
 
-def update_student_service(student: CreateStudent, db_session: Session) -> dict:
+def update_student_service(student: UpdateStudent, db_session: Session) -> dict:
     result_set = db_session.get(Student, student.index_number)
     if not result_set:
         raise HTTPException(status_code=400, detail="student not found")
 
     result_set.studentname = student.studentname
+    result_set.role = student.role
     result_set.password = student.password
     db_session.add(result_set)
     db_session.commit()

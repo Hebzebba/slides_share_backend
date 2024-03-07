@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from ..dep.shared_dependencies import DB_SESSION
 from ..config import BASE_ROUTER
 from ..model.create_model import CreateStudent
+from ..model.update_model import UpdateStudent
 from ..service.student_service import add_student_service, delete_student_service, update_student_service, get_all_students_service, get_student_by_index_number_service
 
 
@@ -19,7 +20,7 @@ def delete_student( index_number: str, db_session: DB_SESSION) -> dict:
 
 
 @student_controller.put(f"{BASE_ROUTER}/student/update", tags=["student"])
-def update_student( student: CreateStudent, db_session: DB_SESSION) -> dict:
+def update_student( student: UpdateStudent, db_session: DB_SESSION) -> dict:
     return update_student_service(student, db_session)
 
 
