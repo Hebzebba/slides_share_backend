@@ -7,7 +7,7 @@ A web app for sharing lecture notes.
 ### Prerequisites
 
 - Python 3.6+
-- Pip (Python package installer)
+- pip (Python package installer)
 
 ### Guide
 1. Create a virtual environment
@@ -16,3 +16,9 @@ A web app for sharing lecture notes.
     `pip install -r requirements.txt`
 3. Start the application by running
     `uvicorn app.main:app --reload`
+4. visit http://localhost:8000/docs to view the swagger dev page.
+
+## NB: Database file will be generated automatically when script is run.
+## default Admin username and password is 
+    username: admin
+    password: password

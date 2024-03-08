@@ -18,8 +18,7 @@ class Lecturer(SQLModel, table=True):
 
 
 class Admin(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: Optional[str] = Field(default=None, primary_key=True)
     role: str
     password: str
 

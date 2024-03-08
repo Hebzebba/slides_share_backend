@@ -6,19 +6,14 @@ from fastapi import HTTPException
 from ..utils import hash_password
 
 
-def add_admin_service(admin: CreateAdmin, db_session: Session) -> dict:
+def add_admin_service(db_session: Session) -> dict:
     try:
-        db_session.add(
-            Admin(
-                name=admin.name,
-                role="Admin",
-                password=hash_password(admin.password)
-            )
-        )
+        admin = Admin(name="admin", role="Admin", password=hash_password("password"))
+        db_session.add(admin)
         db_session.commit()
         return {"message": "admin created successful"}
-    except Exception :
-        raise HTTPException(status_code=400, detail="admin already exist")
+    except Exception:
+        print("User already exit will not create new user")
 
 
 def delete_admin_service(admin_id: str, db_session: Session) -> dict:
